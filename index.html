@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+        }
+
+        .isloading {
+            display: block;
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn">遊樂園資訊</button>
+    <ul class="info">
+    </ul>
+</body>
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+<script>
+    $(document).ready(function () {
+        $('.btn').on('click', function () {
+            
+
+            //2.顯示json 在網頁上
+            $.ajax({
+                type: 'GET',
+                url: 'main.json',
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response, function (index, element) {
+                        $('.info').append(
+                            $('<li>', {
+                                text: [index + 1] + '.' + '名稱：' + element
+                                    .place
+                            }),
+                            $('<li>', {
+                                text: [index + 1] + '.' + '地址：' + element
+                                    .address
+                            }),
+                            $('<p>')
+                        );
+                    });
+                },
+                error: function (data) {
+                    // $.each(data, function (index, element) {
+                    //     $('.info').append(
+                    //         $('<li>', {
+                    //             text: [index + 1] + '.' + '名稱：' + element
+                    //                 .place
+                    //         }),
+                    //         $('<li>', {
+                    //             text: [index + 1] + '.' + '地址：' + element
+                    //                 .address
+                    //         }),
+                    //         $('<p>')
+                    //     );
+                    // });
+                }
+            });
+
+        });
+    });
+</script>
+
+</html>
